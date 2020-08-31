@@ -12,13 +12,15 @@ const ProductItem = ({product}) => {
     const isInCart = product => {
         return !!cartItems.find(item => item.id === product.id);
     }
-
+    console.log(isInCart(product))
+    console.log(product)
     return ( 
         <div className="card card-body">
-            <img style={{display: "block", margin: "0 auto 10px", maxHeight: "200px"}} className="img-fluid" 
-            src={product.photo + '?v=' + product.id} alt=""/>
+            <img style={{display: "block", margin: "0 auto 10px", maxHeight: "400px"}} className="img-fluid" 
+            src={product.photo + '?v=' + product.id} alt={product.name}/>
             <p>{product.name}</p>
             <h3 className="text-left">{formatDollar(product.price)}</h3>
+            <h3 className="text-left">{formartEuros(product.price * 0.84)}</h3>
             <div className="text-right">
                 {
                     isInCart(product) && 
@@ -27,6 +29,7 @@ const ProductItem = ({product}) => {
                         className="btn btn-primary btn-sm mr-2 mb-1">
                             <PlusCircleIcon width={"20px"}/>
                         </button>
+                        
 
                 }
                 {
@@ -52,6 +55,7 @@ const ProductItem = ({product}) => {
                     <button 
                     onClick={() => addProduct(product)}
                     className="btn btn-primary btn-sm">Add to cart</button>
+                    
                 }
                 
             </div>
