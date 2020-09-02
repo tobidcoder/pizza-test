@@ -1,17 +1,22 @@
 import React, { useContext } from 'react';
 import Layout from '../../components/Layout';
-
+import LoginReg from '../LoginRegister';
+import Form from 'react-bootstrap/Form';
 import CartProducts from './CartProducts';
 import { CartContext } from '../../contexts/CartContext';
 import { formartEuros, formatDollar } from '../../helpers/utils';
 import { Link } from 'react-router-dom';
+import { TokenService, SetUser } from '../../services/storage.service';
+
 
 const Cart = () => {
 
     const { total, cartItems, itemCount, clearCart, checkout, handleCheckout } = useContext(CartContext);
     
     return ( 
+       
         <Layout title="Cart" description="This is the Cart page" >
+            
             <div >
                 <div className="text-center mt-5">
                     <h1>Cart</h1>
@@ -46,18 +51,33 @@ const Cart = () => {
                                 <p className="mb-1">Total Payment in Euros</p>
                                 <h3 className="m-0 txt-right">{formartEuros(total*0.84)}</h3>
                                 <hr className="my-4"/>
+
+                                <Form>
+                                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                                        <Form.Label>Shipping Address</Form.Label>
+                                        <Form.Control as="textarea" rows="2" />
+                                    </Form.Group>
+                                  
                                 <div className="text-center">
                                     <button type="button" className="btn btn-primary mb-2" onClick={handleCheckout}>CHECKOUT</button>
                                     <button type="button" className="btn btn-outlineprimary btn-sm" onClick={clearCart}>CLEAR</button>
                                 </div>
-
+                                </Form>
                             </div>
                         </div>
                     }
                     
                 </div>
             </div>
+         {SetUser.getUser() == null ? 
+           <LoginReg />
+           
+            : 
+            ''
+            }
+           
         </Layout>
+        
      );
 }
  

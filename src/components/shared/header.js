@@ -1,19 +1,29 @@
 import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav'
 import { CartContext } from '../../contexts/CartContext';
 import {CartIcon} from '../icons';
 import styles from './header.module.scss';
+import { Link } from 'react-router-dom';
+import Button  from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 
 const Header = () => {
 
     const {itemCount} = useContext(CartContext);
-
+    const pathName = window.location.pathname
     return ( 
+        <div>
         <header className={styles.header}>
-            <Link to='/'>Menu</Link>
-            <Link to='/about'>About</Link>
-            <Link to='/cart'> <CartIcon/>[{itemCount}]</Link>
+            <Nav fill variant="tabs" defaultActiveKey={pathName}>
+            <Nav.Item>
+                <Link to="/">Menu</Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Link to="/cart">  <Badge variant="light"><CartIcon/> {itemCount}</Badge> </Link>  
+            </Nav.Item>
+            </Nav>
         </header>
+        </div>
      );
 }
  

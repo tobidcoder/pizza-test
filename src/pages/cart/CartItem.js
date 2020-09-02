@@ -8,7 +8,8 @@ import { formatDollar, formartEuros } from '../../helpers/utils';
 const CartItem = ({product}) => {
 
     const { increase, decrease, removeProduct } = useContext(CartContext);
-    console.log(product)
+    console.log(product) 
+    
     return ( 
         <div className="row no-gutters py-2">
             <div className="col-sm-2 p-2">
@@ -19,8 +20,7 @@ const CartItem = ({product}) => {
             </div>
             <div className="col-sm-4 p-2">
                 <h5 className="mb-1">{product.name}</h5>
-                <p className="mb-1">Price: {formatDollar(product.price)} </p>
-                <p className="mb-1">Price: {formartEuros(product.price * 0.84)} </p>
+                <p className="mb-1">Price: {formatDollar(product.price)} / {formartEuros(product.price * 0.84)}</p>
             </div>
             <div className="col-sm-2 p-2 text-center ">
                  <p className="mb-0">Qty: {product.quantity}</p>

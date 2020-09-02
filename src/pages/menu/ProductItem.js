@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { PlusCircleIcon, MinusCircleIcon, TrashIcon } from '../../components/icons'
 import { CartContext } from '../../contexts/CartContext';
 import { formatDollar, formartEuros } from '../../helpers/utils';
@@ -12,8 +11,8 @@ const ProductItem = ({product}) => {
     const isInCart = product => {
         return !!cartItems.find(item => item.id === product.id);
     }
-    console.log(isInCart(product))
-    console.log(product)
+     
+   
     return ( 
         <div className="card card-body">
             <img style={{display: "block", margin: "0 auto 10px", maxHeight: "400px"}} className="img-fluid" 
@@ -32,23 +31,7 @@ const ProductItem = ({product}) => {
                         
 
                 }
-                {
-                      product.quantity > 1 &&
-                     <button
-                        onClick={() => decrease(product)}
-                        className="btn btn-danger btn-sm mb-1">
-                        <MinusCircleIcon width={"20px"}/>
-                    </button>
-                 }
-
-                {
-                     product.quantity === 1 &&
-                     <button
-                    onClick={() => removeProduct(product)}
-                    className="btn btn-danger btn-sm mb-1">
-                        <TrashIcon width={"20px"}/>
-                    </button>
-                 }
+                
 
                 {
                     !isInCart(product) && 

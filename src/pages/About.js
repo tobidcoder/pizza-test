@@ -11,7 +11,7 @@ const About = () => {
                 <h1>About</h1>
                 <p>This project was built for Pizza Task FREELANCE WEBDEVELOPER  <strong>Test</strong> by Odejinmi Tobiloba.</p>
 
-                <a className="btn btn-primary" href="https://github.com/tobidcoder/pizza-task">
+                <a className="btn btn-primary" href="https://github.com/tobidcoder/pizza-test">
                     <GitHubIcon width={"18px"}/> <span className="ml-2 mr-4">Visit Repo</span></a>
             </div>
         </Layout>
