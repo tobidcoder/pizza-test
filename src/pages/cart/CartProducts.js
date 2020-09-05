@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../contexts/CartContext';
+import CardGroup from 'react-bootstrap/CardGroup';
 
 import CartItem from './CartItem';
 import styles from './CartProducts.module.scss';
@@ -11,13 +12,13 @@ const CartProducts = () => {
 
     return ( 
         <div className={styles.p__container}>
-            <div className="card card-body border-0">
+            <CardGroup>
 
                 {
                     cartItems.map(product =>  <CartItem key={product.id} product={product}/>)
                 }
 
-            </div>
+           </CardGroup>
         </div>
 
      );

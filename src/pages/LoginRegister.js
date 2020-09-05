@@ -6,7 +6,8 @@ import styles from './home.module.scss';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios  from 'axios';
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
+import Config from '../services/api.config';
 import { TokenService, SetUser } from '../services/storage.service';
 
 export default function LoginRegister() {
@@ -20,19 +21,19 @@ export default function LoginRegister() {
     const handleShow = () => setShow(true);
     const handleLogin = () => setLogin(false);
     const handleRegister = () => setLogin(true);
-   
 
   
     const { register, handleSubmit, watch, errors } = useForm();
 
     const onSubmit = (data) => {
-      console.log(data.name);
+      
       {data.name ?
       
-        axios.post('http://pizza-task.test/api/register', data)
+        axios.post(`${Config.baseUrl}/register`, data)
         .then((response) => {
           setShowAlertLogin(true)
           SetUser.saveUser(response.data.data);
+          TokenService.saveToken(response.data.data.token)
           window.location.reload(false)
         }, (error) => {
 
@@ -41,10 +42,11 @@ export default function LoginRegister() {
         })
       
       :
-      axios.post('http://pizza-task.test/api/login', data)
+      axios.post(`${Config.baseUrl}/login`, data)
       .then((response) => {
         setShowAlertLogin(true)
         SetUser.saveUser(response.data.data);
+        TokenService.saveToken(response.data.data.token)
         window.location.reload(false)
 
       }, (error) => {
