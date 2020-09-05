@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import LoginReg from '../LoginRegister';
 import Form from 'react-bootstrap/Form';
@@ -26,8 +26,9 @@ const Cart = () => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [setShowAlertOders, setsetShowAlertOders] = useState(false)
+    const [shippingFees, setShippingFees] = useState('')
     
-    const userId = TokenService.getToken()
+    const userId = TokenService.getUserId()
 
     const onSubmit = (data) => {
         
@@ -50,7 +51,11 @@ const Cart = () => {
    
        
       }
-    
+      useEffect(() => {
+          setShippingFees(itemCount*1.2)
+          
+      }, [itemCount])
+     
     return ( 
        
         <Layout title="Cart" description="This is the Cart page" >
@@ -102,17 +107,26 @@ const Cart = () => {
                                 <p className="mb-1">Total Payment in Euros</p>
                                 <h3 className="m-0 txt-right">{formartEuros(total*0.84)}</h3>
                                 <hr className="my-4"/>
+                                <p className="mb-1">Shipping Fees</p>
+                                <h3  className="m-0 txt-right">{formatDollar(itemCount*1.2)}</h3>
+                                <hr className="my-4"/>
 
                                 <Form onSubmit={handleSubmit(onSubmit)} >
                                     <Form.Control type="text" name="total_amount_in_dollars" value={total} ref={register({ required: true })} hidden/>
                                     <Form.Control type="text" name="total_amount_in_euros" value={(total*0.84).toFixed(2)} ref={register({ required: true })} hidden/>
                                     <Form.Control type="text" name="user_id" value={userId} ref={register({ required: true })} hidden/>
                                     <Form.Control type="text" name="item_count" value={itemCount} ref={register({ required: true })} hidden/>
+                                    <Form.Control type="text" name="shipping_fees" value={shippingFees} ref={register({ required: true })} hidden/>
 
                                     <Form.Group controlId="exampleForm.ControlTextarea1">
                                         <Form.Label >Shipping Address</Form.Label>
                                         <Form.Control as="textarea" name="address" ref={register({ required: true })}  rows="2" />
                                           {errors.address && <span style={{color: 'red'}}>Address field is required</span>}
+                                    </Form.Group>
+                                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                                        <Form.Label >Phone Number</Form.Label>
+                                        <Form.Control type="text" name="phone_number" ref={register({ required: true })} />
+                                          {errors.phone_number && <span style={{color: 'red'}}>Phone Number field is required</span>}
                                     </Form.Group>
                                   
                                 <div className="text-center">

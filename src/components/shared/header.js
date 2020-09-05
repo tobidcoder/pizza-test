@@ -12,9 +12,9 @@ const Header = () => {
 
     const {itemCount} = useContext(CartContext);
     const pathName = window.location.pathname
+    
     function Logout(){
-        SetUser.removeUser()
-        TokenService.removeToken()
+        TokenService.removeAllItems()
         window.location.reload(false)
     }
 
@@ -35,7 +35,7 @@ const Header = () => {
             }
            
             <Nav.Item>
-                <Link to="/cart">  <Badge variant="light"><CartIcon/> {itemCount}</Badge> </Link>  
+                <Link to="/cart">  <Badge className={styles.count} variant="light"><CartIcon/> <sup>{itemCount}</sup></Badge> </Link>  
             </Nav.Item>
             {SetUser.getUser() == null ? 
                 ''           

@@ -1,4 +1,5 @@
 const TOKEN_KEY = 'PIZZAAPP.TOKEN'
+const USER_KEY = 'PIZZA.USER.KEY'
 const USER = 'PIZZAAPP.USER'
 const REFRESH_TOKEN_KEY = 'PIZZAAPP.REFRESH_TOKEN'
 
@@ -17,6 +18,7 @@ const TokenService = {
     saveToken(accessToken) {
         localStorage.setItem(TOKEN_KEY, accessToken)
     },
+    
 
     removeToken() {
         localStorage.removeItem(TOKEN_KEY)
@@ -32,7 +34,21 @@ const TokenService = {
 
     removeRefreshToken() {
         localStorage.removeItem(REFRESH_TOKEN_KEY)
+    },
+
+    getUserId() {
+        return localStorage.getItem(USER_KEY)
+    },
+    saveUserId(accessUserId) {
+        localStorage.setItem(USER_KEY, accessUserId)
+    },
+
+    removeAllItems()
+    {
+        return localStorage.clear();
     }
+
+
 
 }
 

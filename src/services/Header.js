@@ -3,7 +3,6 @@ import { TokenService, SetUser } from '../services/storage.service';
 
 const accessToken = TokenService.getToken()
 
-console.log(accessToken);
 
 const headers = {
     headers: { 'Accept' : 'application/json',

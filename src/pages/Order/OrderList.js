@@ -15,7 +15,7 @@ export default function OrdersList(){
     
     function getOrders(){
         axios.post(`${Config.baseUrl}/orders`, {
-            user_id: SetUser.getUser().user_id
+            user_id: TokenService.getUserId()
         }, Headers)
         .then((response) => {
             console.log(response.data.data);
@@ -48,6 +48,9 @@ export default function OrdersList(){
             <th>#</th>
                 <th>Order ID</th>
                 <th>Item Count</th>
+                <th>Phone Number</th>
+                <th>Shhiping Address</th>
+                <th>Shipping Fees</th>
                 <th>Total Amount</th>
                 <th>Action</th>      
             </tr>
@@ -65,6 +68,9 @@ export default function OrdersList(){
                 <td>#</td>
                 <td>{order.order_id}</td>
                 <td>{order.item_count}</td>
+                <td>{order.phone_number}</td>
+                <td>{order.shipping_address}</td>
+                <th>{order.shipping_fees}</th>
                 <td>{formatDollar(order.total_amount_in_dollars)} / {formartEuros(order.total_amount_in_euros)}</td> 
                 <td><Link to={'/order/items/'+order.order_id}><button type='button'>View Item</button></Link></td>
                 </tr>

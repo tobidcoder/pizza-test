@@ -34,6 +34,7 @@ export default function LoginRegister() {
           setShowAlertLogin(true)
           SetUser.saveUser(response.data.data);
           TokenService.saveToken(response.data.data.token)
+          TokenService.saveUserId(response.data.data.user_id)
           window.location.reload(false)
         }, (error) => {
 
@@ -47,6 +48,7 @@ export default function LoginRegister() {
         setShowAlertLogin(true)
         SetUser.saveUser(response.data.data);
         TokenService.saveToken(response.data.data.token)
+        TokenService.saveUserId(response.data.data.user_id)
         window.location.reload(false)
 
       }, (error) => {

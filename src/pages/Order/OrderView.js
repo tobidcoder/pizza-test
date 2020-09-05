@@ -20,7 +20,7 @@ export default function OrderView({match}){
     function getOrderItems(){
         axios.post(`${Config.baseUrl}/order/items`, {
             order_id: match.params.order_id,
-            user_id: SetUser.getUser().user_id
+            user_id: TokenService.getUserId()
         }, Headers )
         .then((response) => {
             console.log(response.data.data);
