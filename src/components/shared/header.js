@@ -4,9 +4,9 @@ import { CartContext } from '../../contexts/CartContext';
 import {CartIcon} from '../icons';
 import styles from './header.module.scss';
 import { Link } from 'react-router-dom';
-import Button  from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import { TokenService, SetUser } from '../../services/storage.service';
+import { changeCurrency, useGlobalState } from '../../services/GlobalState';
 
 const Header = () => {
 
@@ -17,12 +17,15 @@ const Header = () => {
         TokenService.removeAllItems()
         window.location.reload(false)
     }
-
-
+    
+    const [value, setValue] = useGlobalState('currency');
+     console.log(value);
     return ( 
         <div>
-        <header className={styles.header}>
-            <Nav fill variant="tabs" defaultActiveKey={pathName}>
+        <header sticky="top" className={styles.header}>
+            <Nav  fill variant="tabs" defaultActiveKey={pathName}>
+            <img onClick={() =>setValue(false)} style={{display: "block", margin: "0 auto 10px", maxHeight: "30px", cursor: 'pointer', color: 'blue'} } className="img-fluid"  src={value ?'/img/d.png' : '/img/dred.png'} alt="Dollars"/>
+            <img onClick={() =>setValue(true)} style={{display: "block", margin: "0 auto 10px", maxHeight: "30px", cursor: 'pointer'}}  className="img-fluid"  src={value ? '/img/ered.png' : '/img/e.png'} alt="Dollars"/>
             <Nav.Item>
                 <Link to="/">Menu</Link>
             </Nav.Item>

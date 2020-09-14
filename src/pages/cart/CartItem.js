@@ -5,6 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { PlusCircleIcon, MinusCircleIcon, TrashIcon } from '../../components/icons'
 import { CartContext } from '../../contexts/CartContext';
+import { changeCurrency, useGlobalState } from '../../services/GlobalState';
+
 
 import { formatDollar, formartEuros } from '../../helpers/utils';
 
@@ -12,45 +14,21 @@ import { formatDollar, formartEuros } from '../../helpers/utils';
 const CartItem = ({product}) => {
     const [ShowAlertIncrease, setShowAlertIncrease] = useState(false);
     const { increase, decrease, removeProduct } = useContext(CartContext);
-
+    const [value, setValue] = useGlobalState('currency');
     
     return (
-        <div>
-        {ShowAlertIncrease ? 
-            <div
-               aria-live="polite"
-               aria-atomic="true"
-               style={{
-                   position: 'relative',
-                   minHeight: '100px',
-               }}
-               >
-               <Toast
-                  
-                   style={{
-                   position: 'absolute',
-                   top: 0,
-                   right: 0,
-                   }}
-                   onClose={() => setShowAlertIncrease(false)} show={ShowAlertIncrease} delay={800} autohide
-               >
-                   <Toast.Header>
-                   <img src={product.photo} className="rounded mr-2"style={{maxHeight: "15px"}} alt="" />
-                   <strong className="mr-auto"></strong>
-                   <small>{product.name}</small>
-                   </Toast.Header>
-                   <Toast.Body>Added to cart.</Toast.Body>
-               </Toast>
-               </div>: '' }
-        
-               
+        <div>             
           
             <Card style={{ width: '15rem',  margin: 10 }}>
             <Card.Img variant="top" src={product.photo} />
             <Card.Body>
                 <Card.Title>  {product.name} </Card.Title>
                 <Card.Text>
-                Price: {formatDollar(product.price)} / {formartEuros(product.price * 0.84)} 
+                {value ?    
+                <Card.Text>  Price: {formartEuros(product.price * 0.84)}  </Card.Text>
+                :
+                <Card.Text>  Price: {formatDollar(product.price)}  </Card.Text>
+                } 
                 Qty: {product.quantity}
                 </Card.Text>
                

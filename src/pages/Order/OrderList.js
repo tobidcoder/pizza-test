@@ -8,11 +8,13 @@ import { TokenService, SetUser } from '../../services/storage.service';
 import { formatDollar, formartEuros } from '../../helpers/utils';
 import GoBackButton from '../../components/shared/GoBackButton';
 import  Headers  from '../../services/Header';
+import Spinner from 'react-bootstrap/Spinner'
+
     
 export default function OrdersList(){
     
     const [orders, setOrders] = useState([]);
-    
+    const [loading, setLoading] = useState(false);
     function getOrders(){
         axios.post(`${Config.baseUrl}/orders`, {
             user_id: TokenService.getUserId()
@@ -27,7 +29,10 @@ export default function OrdersList(){
 
           console.log(error);
           
-        })
+        }) 
+        .finally(function () {
+            setLoading(false);
+          })
     }
 
     useEffect(() => {
@@ -56,6 +61,12 @@ export default function OrdersList(){
             </tr>
             </thead>
             <tbody>
+                
+            {loading ?
+            <td> <Spinner animation="grow" /> </td>
+            : ''}
+         
+            
                 {orders == undefined
             
                 ?
@@ -70,8 +81,8 @@ export default function OrdersList(){
                 <td>{order.item_count}</td>
                 <td>{order.phone_number}</td>
                 <td>{order.shipping_address}</td>
-                <th>{order.shipping_fees}</th>
-                <td>{formatDollar(order.total_amount_in_dollars)} / {formartEuros(order.total_amount_in_euros)}</td> 
+                <th>{order.currency}{order.shipping_fees}</th>
+                <td>{order.currency}{order.total_amount} </td> 
                 <td><Link to={'/order/items/'+order.order_id}><button type='button'>View Item</button></Link></td>
                 </tr>
                 )

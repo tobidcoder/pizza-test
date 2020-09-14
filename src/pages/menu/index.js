@@ -11,6 +11,7 @@ const Store = () => {
                 <div className="text-center mt-5">
                     <h1>Menu</h1>
                     <p>Pizza Menu.</p>
+                    
                 </div>
                 <ProductsGrid/>
             </div>

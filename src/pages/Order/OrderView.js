@@ -10,6 +10,8 @@ import LoginReg from '../LoginRegister';
 import { TokenService, SetUser } from '../../services/storage.service';
 import GoBackButton from '../../components/shared/GoBackButton';
 import  Headers  from '../../services/Header';
+import Spinner from 'react-bootstrap/Spinner'
+
 
 
 
@@ -47,7 +49,7 @@ export default function OrderView({match}){
      <tr  key={item.id}>  
       <td>#</td>
       <td>{item.name}</td>
-      <td>{formatDollar(item.price)} / {formartEuros(item.price * 0.84)}</td>
+      <td>{item.currency}{item.price}</td>
       <td> <img src={item.photo} className="rounded mr-2"style={{maxHeight: "30px"}} alt="" /></td>
       <td>{item.quantity}</td>
     </tr>
